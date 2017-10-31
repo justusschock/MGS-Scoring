@@ -1,34 +1,35 @@
 import os
 import cv2
 import numpy as np
+import imageio
+from multiprocessing import Pool
 
 
-edge_upper_left = (0, 0)
-edge_middle = (0, 0)
-edge_bottom_right = (0, 0)
+def extract_frames(file_path, base_path):
+    path, folder = os.path.split(file_path)
+    out_path = os.path.join(base_path, os.path.split(path)[-1], folder.rsplit(".", maxsplit=1)[0])
+    os.makedirs(out_path, exist_ok=True)
 
-file_name = "/home/temp/schock/MGS/MVI_0315.MOV"
-out_dir = "/home/temp/schock/MGS/" + os.path.split(file_name)[-1].rsplit(".")[0]
+    print("Extracting frames from \n %s \n \t to \n %s" % (file_path, out_path))
 
-frames = []
+    reader = imageio.get_reader(file_path)
+    for i, im in enumerate(reader):
+        imageio.imwrite(os.path.join(out_path, "frame_%d.png" % i), im)
+        print(i)
 
-os.makedirs(os.path.join(out_dir, "whole_imgs"), exist_ok=True)
-os.makedirs(os.path.join(out_dir, "separated_imgs"), exist_ok=True)
-vidcap = cv2.VideoCapture(file_name)
-success, image = vidcap.read()
-count = 0
-success = True
-while success:
-    success, image = vidcap.read()
-    # if count == 0:
-    #   tmp = input("Please enter coordinates of upper left edge (separated by \",\"):").split(",")
-    #   edge_upper_left = (int(tmp[0]), int(tmp[1]))
-    #   tmp = input("Please enter coordinates of middle edge (separated by \",\"):").split(",")
-    #   edge_middle = (int(tmp[0]), int(tmp[1]))
-    #   tmp = input("Please enter coordinates of bottom right edge (separated by \",\"):").split(",")
-    #   edge_bottom_right = (int(tmp[0]), int(tmp[1]))
 
-    cv2.imwrite(os.path.join(out_dir, "frame%d.jpg" % count), image)     # save frame as JPEG file
-    if cv2.waitKey(10) == 27:                     # exit if Escape is hit
-        break
-    count += 1
+root_dir = "/home/temp/schock/MGS/Videos"
+
+base_out_dir = "/home/temp/schock/MGS/ExtractedFrames/Whole"
+
+
+subdirs = [os.path.join(root_dir, x) for x in os.listdir(root_dir) if os.path.isdir(os.path.join(root_dir, x))]
+subdirs.sort()
+movie_files = []
+for subdir in subdirs:
+    movie_files += [os.path.join(subdir, x) for x in os.listdir(subdir) if (os.path.isfile(os.path.join(subdir, x)) and x.endswith(".MOV"))]
+movie_files.sort()
+
+print(movie_files)
+#for mvfile in movie_files:
+#    extract_frames(mvfile, base_out_dir)
