@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import imageio
 from multiprocessing import Pool
+from functools import partial
 
 
 def extract_frames(file_path, base_path):
@@ -15,7 +16,8 @@ def extract_frames(file_path, base_path):
     reader = imageio.get_reader(file_path)
     for i, im in enumerate(reader):
         imageio.imwrite(os.path.join(out_path, "frame_%d.png" % i), im)
-        print(i)
+
+    print("Finished Extracting %s" % file_path)
 
 
 root_dir = "/home/temp/schock/MGS/Videos"
@@ -30,6 +32,9 @@ for subdir in subdirs:
     movie_files += [os.path.join(subdir, x) for x in os.listdir(subdir) if (os.path.isfile(os.path.join(subdir, x)) and x.endswith(".MOV"))]
 movie_files.sort()
 
-print(movie_files)
+#print(movie_files)
 #for mvfile in movie_files:
 #    extract_frames(mvfile, base_out_dir)
+
+with Pool() as p:
+    p.map(partial(extract_frames, base_path=base_out_dir), movie_files)
