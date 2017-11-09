@@ -1,0 +1,37 @@
+name: maus_gui
+channels:
+- anaconda
+- conda-forge
+- defaults
+dependencies:
+- ca-certificates=2017.08.26=h94faf87_0
+- icu=58.2=vc14hc45fdbb_0
+- jpeg=9b=vc14h4d7706e_1
+- libpng=1.6.32=vc14h5163883_3
+- openssl=1.0.2l=vc14hf4c37d5_5
+- pyqt=5.6.0=py36hb5ed885_5
+- qt=5.6.2=vc14h6f8c307_12
+- sip=4.18.1=py36h9c25514_2
+- sqlite=3.20.1=vc14h7ce8c62_1
+- zlib=1.2.11=vc14h1cdd9ab_1
+- av=0.3.3=py36_1
+- ffmpeg=3.2.4=1
+- freetype=2.7=vc14_1
+- imageio=2.2.0=py36_0
+- libtiff=4.0.7=vc14_1
+- olefile=0.44=py36_0
+- pillow=4.3.0=py36_1
+- certifi=2017.7.27.1=py36h043bc9e_0
+- icc_rt=2017.0.4=h97af966_0
+- intel-openmp=2018.0.0=hcd89f80_7
+- mkl=2018.0.0=h36b65af_4
+- numpy=1.13.3=py36ha320f96_0
+- pip=9.0.1=py36h226ae91_4
+- python=3.6.3=h3b118a2_4
+- setuptools=36.5.0=py36h65f9e6e_0
+- vc=14=h2379b0c_2
+- vs2015_runtime=14.0.25123=hd4c4e62_2
+- wheel=0.29.0=py36h6ce6cde_1
+- wincertstore=0.2=py36h7fe50ca_0
+prefix: D:\guth\miniconda\envs\maus_gui
+
