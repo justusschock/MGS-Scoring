@@ -11,6 +11,7 @@ import torch.utils.data as data
 from PIL import Image, ImageOps
 import os
 import os.path
+import numpy as np
 
 IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
@@ -42,15 +43,12 @@ def make_dataset(dir):
     return images
 
 
-def get_corresponding_path(img_path, label_root_path, train_D=False):
+def get_corresponding_path(img_path, label_root_path):
     img_name = (os.path.split(img_path)[-1]).rsplit('.', 1)[0]
 
-    if train_D:
-        mask_name = img_name.replace('_pred', '_mask.gif')
-    else:
-        mask_name = img_name + '_mask.gif'
+    label_name = img_name + ".npy"
 
-    return os.path.join(label_root_path, mask_name)
+    return os.path.join(label_root_path, label_name)
 
 
 def default_loader(path, n_channels):
@@ -63,6 +61,10 @@ def default_loader(path, n_channels):
         img = img.convert('RGB')
 
     return img
+
+
+def default_label_loader(path):
+    return np.load(path)
 
 
 def car_loader(path, n_channels):
@@ -111,8 +113,8 @@ class ImageFolder(data.Dataset):
 
 class CorrespondenceImageFolder(data.Dataset):
 
-    def __init__(self, root, input_nc, output_nc, input_transform=None, output_transform=None, return_masks=True, return_paths=False,
-                 loader=car_loader, train_D=False):
+    def __init__(self, root, input_nc, input_transform=None, output_transform=None, return_labels=True, return_paths=False,
+                 loader=default_loader, label_loader=default_label_loader):
         img_names = make_dataset(root)
         if len(img_names) == 0:
             raise(RuntimeError("Found 0 images in: " + root + "\n"
@@ -120,14 +122,13 @@ class CorrespondenceImageFolder(data.Dataset):
 
         self.root = root
         self.img_names = img_names
-        self.return_masks = return_masks
+        self.return_labels = return_labels
         self.input_transform = input_transform
         self.output_transform = output_transform
         self.return_paths = return_paths
         self.loader = loader
         self.input_nc = input_nc
-        self.output_nc = output_nc
-        self.train_D = train_D
+        self.label_loader = label_loader
 
     def __getitem__(self, index):
 
@@ -136,16 +137,16 @@ class CorrespondenceImageFolder(data.Dataset):
         if self.input_transform is not None:
             img = self.input_transform(img)
 
-        if self.return_masks:
-            path_mask = get_corresponding_path(path, self.root.replace('/A', '/B'), train_D=self.train_D)
-            mask = self.loader(path_mask, self.output_nc)
+        if self.return_labels:
+            path_label = get_corresponding_path(path, self.root)
+            label = self.label_loader(path_label)
             if self.output_transform is not None:
-                mask = self.output_transform(mask)
+               label = self.output_transform(label)
 
             if self.return_paths:
-                data_dict = {'img': img, 'mask': mask, 'path_img': path, 'path_mask': path_mask}
+                data_dict = {'img': img, 'label': label, 'path_img': path, 'path_label': path_label}
             else:
-                data_dict = {'img': img, 'mask': mask}
+                data_dict = {'img': img, 'label': label}
 
         else:
             if self.return_paths:
