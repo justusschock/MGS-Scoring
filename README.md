@@ -1,4 +1,4 @@
-Installation
+## Installation
 
 * ``git clone https://git.lfb.rwth-aachen.de/schock/mouse-project.git``
 * ``cd mouse-project``
