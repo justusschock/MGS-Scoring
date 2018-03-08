@@ -33,26 +33,21 @@ class AsyncBackendCall(QThread):
         self.wait()
 
     def run(self):
+        # Main program loop
+        # Runs infinitely and send the current frame to the server
         while True:
             if(self.current_frame):
                 self.make_request(self.current_frame)
-            # if(self.queue.empty()):
-            #     continue
-            #
-            # item = self.queue.get()
-            # self.make_request(item)
-            # self.queue.task_done()
+
 
     def make_request(self, frame):
-        # time.sleep(1)
-        # value = randint(1, 10)
-
+        # Send the frame object via zmq socket
         self.socket.send_pyobj(frame)
 
-         # Get the reply.
+         # Get the reply
         reply = self.socket.recv_pyobj()
 
-
+        # Fire the events (ready)
         self.result_ready.emit(reply['value'], self.widget_index)
         self.coordinates_ready.emit(reply['coords'])
 
@@ -68,7 +63,6 @@ class SmallVideo(QWidget, video_small.Ui_Form):
 
         self.startpoint = startpoint
         self.endpoint = endpoint
-        # self.widget_index = widget_index
 
         self.worker_thread = AsyncBackendCall(widget_index, server_address, server_port)
         self.worker_thread.start()
@@ -83,20 +77,12 @@ class SmallVideo(QWidget, video_small.Ui_Form):
 
         self.worker_thread.coordinates_ready.connect(self.update_coordinates)
 
-        # data1 = np.random.normal(size=300)
-        # self.plot.setDownsampling(mode='peak')
-        # self.plot.setClipToView(True)
-        # self.plot.setYRange(min=0, max=10)
-        # # self.plot.setRange(xRange=[-100, 0])
-        # self.curve = self.plot.plot()
-
 
     def updateFrame(self, frame):
-        # data = frame.to_image()
-        # # data = data.resize((1024, 768))
-        # data = data.rotate(-90, expand=True)
+        # The frame has been re-sized (by 1/2) for the box selection, thus
+        # all coordinates need to be doubled again here.
         cropped = frame.crop((self.startpoint.x() * 2, self.startpoint.y() * 2, self.endpoint.x() * 2, self.endpoint.y() * 2))
-        # self.display.setPixmap(cropped)
+
         self.worker_thread.set_frame(cropped)
 
         if self.should_show_coordinates:

@@ -13,7 +13,6 @@ class DisplayWidget(QLabel):
 
         size_policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         size_policy.setHeightForWidth(True)
-        # size_policy.setWidthForHeight(True)
 
         self.setSizePolicy(size_policy)
 
@@ -39,13 +38,7 @@ class DisplayWidget(QLabel):
             super(DisplayWidget, self).setPixmap(self.pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
 
     def setPixmap(self, frame):
-        # data = frame.to_image()
-        # # data = data.resize((1024, 768))
-        # data = data.rotate(-90, expand=True)
-        data = frame
-
-        self.pixmap = toqpixmap(data)
-
+        self.pixmap = toqpixmap(frame)
         super().setPixmap(self.pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
 
 
@@ -55,12 +48,7 @@ class MainDisplayWidget(DisplayWidget):
         super(MainDisplayWidget, self).__init__(parent)
 
     def setPixmap(self, frame):
-        # data = frame.to_image()
-        # # data = data.resize((1024, 768))
-        # data = data.rotate(-90, expand=True)
-        data = frame
-
-        self.pixmap = toqpixmap(data)
+        self.pixmap = toqpixmap(frame)
 
         super().setPixmap(self.pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
 
