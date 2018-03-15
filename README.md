@@ -1,8 +1,8 @@
 ## Installation
 
-* ``git clone https://git.lfb.rwth-aachen.de/schock/mouse-project.git``
+ 
+* ``git clone https://git.lfb.rwth-aachen.de/schock/mouse-project.git -b segmentation --single-branch``
 * ``cd mouse-project``
-* ``git fetch && git checkout segmentation``
 * ``conda env create -f gpu_env_linux_segmentation_mgs.yaml``
 * ``source activate mgs_segmentation``
 
