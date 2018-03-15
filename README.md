@@ -1,8 +1,7 @@
 ## Installation
 
-* ``git clone https://git.lfb.rwth-aachen.de/schock/mouse-project.git``
+* ``git clone https://git.lfb.rwth-aachen.de/schock/mouse-project.git -b backend --single-branch
 * ``cd mouse-project``
-* ``git fetch && git checkout backend``
 * ``conda env create -f gpu_env_linux_backend_mgs.yaml``
 * ``source activate mgs_backend``
 

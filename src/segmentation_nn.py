@@ -45,10 +45,10 @@ class SegmentationNetwork(object):
         self.model.cuda()
         self.gan = options.gan
 
-        self.data_sets = CorrespondenceDataLoader(options).load_data()
-        self.image_handler = ImageHandler()
-        self.loss_dir = self.options.output_path + "/" + self.options.name + "/Train"
-        copyfile(os.path.relpath('seg_config.yaml'), os.path.join(self.options.model_path, self.options.name, 'seg_config.yaml'))
+#        self.data_sets = CorrespondenceDataLoader(options).load_data()
+#        self.image_handler = ImageHandler()
+#        self.loss_dir = self.options.output_path + "/" + self.options.name + "/Train"
+#        copyfile(os.path.relpath('seg_config.yaml'), os.path.join(self.options.model_path, self.options.name, 'seg_config.yaml'))
 
     def train(self):
         """

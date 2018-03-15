@@ -32,7 +32,7 @@ class Network(torch.nn.Module):
         self.decay = decay
         self.decay_epochs = decay_epochs
         self.save_dir = model_path
-        os.makedirs(self.save_dir, exist_ok=True)
+#        os.makedirs(self.save_dir, exist_ok=True)
 
         self.input_img = None
         self.input_gt = None
