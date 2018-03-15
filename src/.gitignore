@@ -1,0 +1,6 @@
+*.idea
+*.pyc
+*/Images/*
+*.png
+*__pycache__*
+*.yaml
