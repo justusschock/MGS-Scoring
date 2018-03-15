@@ -9,8 +9,8 @@
 
 * Unpack "ear_images.zip" and "eye_images.zip"
 * Change Paths and Train options in "main_kfold.py"
-..* "param_dir" should be a directory containing the file "params_tutorialNet_CIFAR10.pth"
-..* trained parameters will also be saved to "param_dir"
+  * "param_dir" should be a directory containing the file "params_tutorialNet_CIFAR10.pth"
+  * trained parameters will also be saved to "param_dir"
 
 ## Training
 
