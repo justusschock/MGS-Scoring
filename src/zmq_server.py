@@ -1,16 +1,17 @@
-#
-#   Hello World server in Python
-#   Binds REP socket to tcp://*:5555
-#   Expects b"Hello" from client, replies with b"World"
-#
 
 import time
 import zmq
 from backend import Backend
+import argparse
+
+parser = argparse.ArgumentParser(description='Parse Port from command line')
+parser.add_argument("-p", "--port", type=int, help="Backend communication port", default=5555)
+
+args = parser.parse-args()
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind("tcp://*:6666")
+socket.bind("tcp://*:" + str(args.port)
 backend = Backend()
 
 print("Started Server")

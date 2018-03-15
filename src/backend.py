@@ -1,7 +1,7 @@
 import os
 import sys
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '4'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '4'
 
 import matplotlib
 matplotlib.use('Agg')
