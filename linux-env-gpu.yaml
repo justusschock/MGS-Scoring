@@ -1,4 +1,4 @@
-name: mouse
+name: mouse_classification
 channels:
 - soumith
 - menpo
@@ -158,5 +158,4 @@ dependencies:
   - keras==2.0.5
   - prompt-toolkit==1.0.15
   - torch==0.2.0.post4
-prefix: /home/students/schock/miniconda3/envs/mouse
 

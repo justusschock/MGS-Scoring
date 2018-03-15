@@ -27,8 +27,8 @@ import net_summary
 # Settings
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 use_gpu = False
-root_dir = '/home/temp/schneuing/Ohren_Fotos/gesamt/'
-param_dir = '/home/temp/schneuing/Ohren_Ergebnisse/'
+root_dir = '../../../ear_images/'
+param_dir = '../../'
 use_sureness = True  # Defines if modified network structure and loss function with sureness-factor are used
 epochs = 30
 batch_size = 32
