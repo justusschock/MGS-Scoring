@@ -1,7 +1,7 @@
 import os
 import sys
 
-# os.environ['CUDA_VISIBLE_DEVICES'] = '4'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 
 import matplotlib
 matplotlib.use('Agg')
@@ -71,16 +71,7 @@ class Backend(object):
                 preds = self.reg_model(Variable(images))
                 positions = orig_pos
                 result = float(torch.mean(preds.data))
-                if len(positions) > 2:
-                    image.save('/home/temp/schock/backend_debugging/frame_%d.png' % time.time())
             else:
                 result = None
                 positions = []
             return {'value': result, 'coords': positions}
-
-
-if __name__ == '__main__':
-    backend = Backend()
-    img = Image.open("/home/temp/schock/backend_debugging/frame_1513782571.png")
-    pred = backend.predict(img)
-    print(pred)

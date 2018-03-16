@@ -7,11 +7,11 @@ import argparse
 parser = argparse.ArgumentParser(description='Parse Port from command line')
 parser.add_argument("-p", "--port", type=int, help="Backend communication port", default=5555)
 
-args = parser.parse-args()
+args = parser.parse_args()
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind("tcp://*:" + str(args.port)
+socket.bind("tcp://*:" + str(args.port))
 backend = Backend()
 
 print("Started Server")
