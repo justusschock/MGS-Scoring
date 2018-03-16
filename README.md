@@ -6,6 +6,7 @@
 * ``source activate mgs_backend``
 
 ## Start Backend
+* ``cd src``
 * If you want to use the default port (5555):
 	``python zmq_server.py``
 * Else:
